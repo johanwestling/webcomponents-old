@@ -1,0 +1,12 @@
+@keyframes loading-pulsate {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+*:not(:defined) {
+  animation: loading-pulsate 0.5s ease infinite alternate;
+}

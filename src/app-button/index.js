@@ -1,4 +1,4 @@
-const componentName = `app-input`;
+const componentName = `app-button`;
 
 class Component extends HTMLElement {
   constructor() {
@@ -9,7 +9,7 @@ class Component extends HTMLElement {
     template.innerHTML = `
     <style>
     :host {
-      --app-input-background-default: white;
+      --app-input-background-default: black;
       --app-input-padding: 
         var(--app-input-padding-top, .5em) 
         var(--app-input-padding-right, .5em) 
@@ -22,6 +22,7 @@ class Component extends HTMLElement {
       --app-input-border-radius: .3em;
 
       display: inline-block;
+      color: white;
     }
 
     #container {

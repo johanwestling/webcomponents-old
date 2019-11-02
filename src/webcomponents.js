@@ -5,6 +5,10 @@ const MutationObserver =
   WebComponents = window.WebComponents,
   componentPromises = {};
 
+export default (() => {
+  WebComponents.waitFor(() => componentsInit());
+})();
+
 function componentsFinder() {
   const components = [...document.querySelectorAll(":not(:defined)")].filter(
     el => el.localName.startsWith(`app-`)
@@ -28,12 +32,6 @@ function componentsInit() {
     childList: true,
     subtree: true
   });
+
+  componentsFinder();
 }
-
-WebComponents.waitFor(() => componentsInit());
-
-document.getElementById("input-add").addEventListener("click", event => {
-  const container = document.getElementById("input-container");
-
-  container.innerHTML = `${container.innerHTML}<app-input></app-input>`;
-});
