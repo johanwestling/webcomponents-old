@@ -10,14 +10,14 @@ class Component extends HTMLElement {
     <style>
     :host {
       --app-input-background-default: black;
-      --app-input-padding: 
-        var(--app-input-padding-top, .5em) 
-        var(--app-input-padding-right, .5em) 
-        var(--app-input-padding-bottom, .5em) 
+      --app-input-padding:
+        var(--app-input-padding-top, .5em)
+        var(--app-input-padding-right, .5em)
+        var(--app-input-padding-bottom, .5em)
         var(--app-input-padding-left, .5em);
-      --app-input-border: 
-        var(--app-input-border-size, 1px) 
-        var(--app-input-border-type, solid) 
+      --app-input-border:
+        var(--app-input-border-size, 1px)
+        var(--app-input-border-type, solid)
         var(--app-input-border-color, black);
       --app-input-border-radius: .3em;
 
@@ -64,6 +64,6 @@ export default () => {
   console.log(`[${componentName}]: init`);
 
   if (!customElements.get(`${componentName}`)) {
-    setTimeout(() => customElements.define(`${componentName}`, Component), 500);
+    customElements.define(`${componentName}`, Component);
   }
 };

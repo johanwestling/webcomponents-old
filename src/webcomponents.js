@@ -6,13 +6,19 @@ const WebComponents = window.WebComponents,
 const componentsLoaded = {};
 
 export default (() => {
-  WebComponents.waitFor(() => componentsInit());
+  // WebComponents.waitFor(() => componentsInit());
+  componentsInit();
 })();
 
 function componentsFinder() {
-  const components = [...document.querySelectorAll(":not(:defined)")].filter(
-    el => el.localName.startsWith(`app-`)
-  );
+  // const components = [...document.querySelectorAll(":not(:defined)")].filter(
+  //   el => el.localName.startsWith(`app-`)
+  // );
+
+  const els = document.querySelectorAll(":not(:defined)") || document.getElementsByTagName("*"),
+        components = [...els].filter(
+          el => el.localName.startsWith(`app-`)
+        );
 
   for (var i in components) {
     const component = components[i];
@@ -20,7 +26,7 @@ function componentsFinder() {
     if (!(component.localName in componentsLoaded)) {
       componentsLoaded[component.localName] = AppComponents[component.localName]
         .then(response => {
-          if (response && typeof response.default) response.default();
+          if (response && typeof response.default) setTimeout(response.default, Math.floor(Math.random()*(2000-1000+1)+1000));
         });
     }
   }
