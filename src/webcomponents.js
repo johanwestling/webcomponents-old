@@ -8,7 +8,7 @@ export default (() => {
   try {
     window.WebComponents.waitFor(componentsInit);
   } catch (e) {
-    console.log(`Failed to load polyfills loader!`);
+    console.warn(`Failed to load polyfills loader!`);
     componentsInit();
   }
 })();
