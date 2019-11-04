@@ -1,19 +1,42 @@
 import AppComponents from "./component-loaders";
-
-const MutationObserver =
-  window.MutationObserver || window.WebKitMutationObserver;
 const componentsLoaded = {};
+const MutationObserver = mutationObserverPrefixed();
 
-export default (() => {
-  try {
-    window.WebComponents.waitFor(componentsInit);
-  } catch (e) {
-    console.warn(`Failed to load polyfills loader!`);
-    componentsInit();
-  }
-})();
+function mutationObserverPrefixed() {
+  return window.MutationObserver || window.WebKitMutationObserver;
+}
 
-function componentsFinder() {
+function webcomponentsAwaitReady() {
+  return new Promise(resolve => {
+    function webcomponentsAreReady() {
+      if (!window.WebComponents || !window.WebComponents.ready) {
+        console.log(`[webcomponents.js]: Waiting...`);
+        requestAnimationFrame(webcomponentsAreReady);
+        return;
+      }
+      resolve(webcomponentsReady());
+    }
+    requestAnimationFrame(webcomponentsAreReady);
+  });
+}
+
+function webcomponentsReady() {
+  console.log(`[webcomponents.js]: Ready!`);
+  window.WebComponents.waitFor(webcomponentsAwaitComponents);
+}
+
+function webcomponentsAwaitComponents() {
+  const observer = new MutationObserver(webcomponentsInitComponents);
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+
+  webcomponentsInitComponents();
+}
+
+function webcomponentsInitComponents() {
   const els =
     document.querySelectorAll(":not(:defined)") ||
     document.getElementsByTagName("*");
@@ -36,15 +59,4 @@ function componentsFinder() {
   }
 }
 
-function componentsInit() {
-  const observer = new MutationObserver(componentsFinder);
-
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
-
-  componentsFinder();
-
-  return Promise.resolve();
-}
+export default webcomponentsAwaitReady();
