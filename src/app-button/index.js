@@ -60,10 +60,10 @@ class Component extends HTMLElement {
   }
 }
 
-export default (() => {
+export default () => {
   console.log(`[${componentName}]: init`);
 
   if (!customElements.get(`${componentName}`)) {
     setTimeout(() => customElements.define(`${componentName}`, Component), 500);
   }
-})();
+};
