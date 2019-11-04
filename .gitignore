@@ -1,0 +1,18 @@
+# Folders
+.cache/
+dist/
+node_modules/
+
+# Files
+.DS_Store
+*-debug.log*
+*-error.log*
+**/.generated/*
+!**/.generated/.gitkeep
+**/components/*/app-*.js
+**/package-lock.json
+!package-lock.json
+
+# Editors
+.idea
+.vscode
