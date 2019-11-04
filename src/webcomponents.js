@@ -1,13 +1,11 @@
 import AppComponents from "./component-loaders";
 
-const WebComponents = window.WebComponents,
-      MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
+const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 const componentsLoaded = {};
 
 export default (() => {
-  // WebComponents.waitFor(() => componentsInit());
-  componentsInit();
+  document.addEventListener('DOMContentLoaded', () => componentsInit());
+  // window.WebComponents.waitFor(() => componentsInit());
 })();
 
 function componentsFinder() {
@@ -15,10 +13,8 @@ function componentsFinder() {
   //   el => el.localName.startsWith(`app-`)
   // );
 
-  const els = document.querySelectorAll(":not(:defined)") || document.getElementsByTagName("*"),
-        components = [...els].filter(
-          el => el.localName.startsWith(`app-`)
-        );
+  const els = document.querySelectorAll(":not(:defined)") || document.getElementsByTagName("*");
+  const components = [...els].filter(el => el.localName.startsWith(`app-`));
 
   for (var i in components) {
     const component = components[i];
