@@ -1,9 +1,9 @@
 import AppComponents from "./component-loaders";
 
-const MutationObserver =
-  window.MutationObserver || window.WebKitMutationObserver;
-const WebComponents = window.WebComponents;
-const componentPromises = {};
+const WebComponents = window.WebComponents,
+      MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+const componentsLoaded = {};
 
 export default (() => {
   WebComponents.waitFor(() => componentsInit());
@@ -17,12 +17,11 @@ function componentsFinder() {
   for (var i in components) {
     const component = components[i];
 
-    if (!(component.localName in components)) {
-      componentPromises[component.localName] = AppComponents[
-        component.localName
-      ].then(response => {
-        if (response && typeof response.default) response.default();
-      });
+    if (!(component.localName in componentsLoaded)) {
+      componentsLoaded[component.localName] = AppComponents[component.localName]
+        .then(response => {
+          if (response && typeof response.default) response.default();
+        });
     }
   }
 }
@@ -36,4 +35,6 @@ function componentsInit() {
   });
 
   componentsFinder();
+
+  return Promise.resolve();
 }
