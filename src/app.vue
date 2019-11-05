@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="app">
-    <div class="app-preview" v-html="webcomponentsHTML"></div>
     <div class="app-actions">
       <button type="button" @click="webcomponentAdd('app-input')">+ App-input</button>
       <button type="button" @click="webcomponentAdd('app-button')">+ App-button</button>
     </div>
+    <div class="app-preview" v-html="webcomponentsHTML"></div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     };
   },
   computed: {
-    webcomponentsHTML(){
+    webcomponentsHTML() {
       let html = ``;
 
       this.webcomponents.forEach(component => {
@@ -32,25 +32,26 @@ export default {
       <div id="scroll-target"></div>
       `;
     },
-    webcomponentsScrollIntoView(){
-
+    webcomponentsScrollIntoView() {
       return this.webcomponentsHTML;
     }
   },
   methods: {
-    webcomponentAdd(component){
+    webcomponentAdd(component) {
       this.webcomponents.push(component);
     }
   },
-  mounted(){
-    this.webcomponentsPreview = document.querySelector('.app-preview');
+  mounted() {
+    this.webcomponentsPreview = document.querySelector(".app-preview");
   },
-  updated(){
+  updated() {
     setTimeout(() => {
-      if(this.webcomponentsPreview){
-        const target = this.webcomponentsPreview.querySelector('#scroll-target');
+      if (this.webcomponentsPreview) {
+        const target = this.webcomponentsPreview.querySelector(
+          "#scroll-target"
+        );
 
-        if(target){
+        if (target) {
           target.scrollIntoView({
             behavior: "smooth",
             block: "start"
@@ -73,8 +74,12 @@ body {
   margin: 0;
 }
 
-body, button, input, select, textarea {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 1em;
   line-height: 1.5;
   color: inherit;
@@ -85,7 +90,7 @@ body, button, input, select, textarea {
   height: 100vh;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 1fr 3em;
+  grid-template-rows: 3em 1fr;
 }
 
 .app-preview {
@@ -99,7 +104,7 @@ body, button, input, select, textarea {
 }
 
 .app-preview > * {
-  margin: .5em;
+  margin: 0.5em;
 }
 
 .app-actions {
@@ -115,7 +120,7 @@ body, button, input, select, textarea {
 
 .app-actions button {
   background: transparent;
-  padding: 0 .5em;
+  padding: 0 0.5em;
   border: none;
 }
 </style>
